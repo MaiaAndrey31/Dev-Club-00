@@ -547,29 +547,84 @@ img,svg,canvas{display:block;max-width:100%}
 .mentors-head h2{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:800;letter-spacing:-.04em;line-height:.95;max-width:760px;text-transform:uppercase;font-stretch:75%;margin-top:8px}
 .mentors-head h2 em{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--accent);font-stretch:100%}
 .mentors-head .desc{font-size:15px;color:var(--text-mute);max-width:380px;line-height:1.6}
-.mentors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1500px;margin:0 auto;position:relative;z-index:1}
-@media(max-width:900px){.mentors-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.mentors-grid{grid-template-columns:1fr}}
-.mcard{background:var(--bg-card);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;transition:border-color .4s,transform .4s var(--e-out)}
-.mcard:hover{border-color:var(--accent);transform:translateY(-4px)}
-.mcard::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(57,211,83,.10),transparent 50%);opacity:0;transition:opacity .4s;pointer-events:none}
-.mcard:hover::after{opacity:1}
-.mcard>*{position:relative;z-index:2}
-.mcard .mhead{display:flex;align-items:center;gap:16px}
-.mcard .mavatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:grid;place-items:center;font-family:var(--f-mono);font-weight:700;font-size:20px;color:var(--bg);position:relative;flex-shrink:0}
-.mcard .mavatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(57,211,83,.3)}
-.mcard .mavatar.alt{background:linear-gradient(135deg,var(--purple),var(--accent-glow))}
-.mcard .minfo .mname{font-size:17px;font-weight:700;letter-spacing:-.01em}
-.mcard .minfo .mrole{font-family:var(--f-mono);font-size:10px;color:var(--accent);letter-spacing:.18em;text-transform:uppercase;margin-top:4px}
-.mcard .mstack{display:flex;flex-wrap:wrap;gap:6px}
-.mcard .mstack span{font-family:var(--f-mono);font-size:9px;color:var(--text-mute);border:1px solid var(--line);padding:4px 9px;border-radius:100px;letter-spacing:.1em;text-transform:uppercase;transition:all .3s}
-.mcard:hover .mstack span{border-color:rgba(57,211,83,.4);color:var(--accent)}
-.mcard .mmeta{display:flex;justify-content:space-between;align-items:center;padding-top:18px;border-top:1px solid var(--line);margin-top:auto}
-.mcard .mcorp{display:flex;flex-direction:column;gap:4px}
-.mcard .mcorp .label{font-family:var(--f-mono);font-size:9px;color:var(--text-dim);letter-spacing:.2em;text-transform:uppercase}
-.mcard .mcorp .val{font-size:13px;color:var(--text);font-weight:600}
-.mcard .myears{font-family:var(--f-mono);font-size:10px;color:var(--text-mute);text-align:right;letter-spacing:.1em;text-transform:uppercase}
-.mcard .myears b{font-size:24px;color:var(--accent);font-weight:700;letter-spacing:-.02em;display:block;line-height:1;font-family:var(--f-mono);margin-bottom:2px}
+/* ===== COLMEIA / HONEYCOMB ===== */
+.honeycomb{--w:172px;--h:198px;--gap:8px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;margin:24px auto 0;padding:calc(var(--h)*.5) 0}
+.hc-row{display:flex;justify-content:center}
+.hc-row + .hc-row{margin-top:calc(var(--h) * -0.255)}
+.hc-row.shift{margin-left:calc((var(--w) + var(--gap)) / 2)}
+/* cell = geometria do favo; favo = favo visível */
+.cell{width:var(--w);height:var(--h);margin:calc(var(--gap)/2);position:relative;display:grid;place-items:center}
+.favo{width:100%;height:100%;position:relative;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  transition:transform .55s var(--e-out),filter .55s,background .45s;}
+
+/* --- FAVO VAZIO (decorativo) --- */
+.favo.empty{transition:none;background:
+   radial-gradient(circle at 50% 42%,rgba(57,211,83,.05),transparent 60%),
+   var(--bg-surface);
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.35))}
+.favo.empty::after{content:'';position:absolute;inset:0;clip-path:inherit;
+  background:linear-gradient(150deg,rgba(255,255,255,.05),rgba(255,255,255,0) 60%);pointer-events:none}
+.favo.empty .dot{position:absolute;top:50%;left:50%;width:6px;height:6px;border-radius:50%;
+  background:var(--line-strong);transform:translate(-50%,-50%)}
+
+/* --- FAVO PREENCHIDO (mentor) --- */
+.favo.full{--t1:var(--accent);--t2:var(--purple);cursor:none;
+  background:linear-gradient(150deg,var(--t1),var(--t2));
+  filter:drop-shadow(0 8px 22px rgba(0,0,0,.45))}
+.favo.full.alt{--t1:var(--purple);--t2:var(--accent-glow)}
+.favo.full:hover{transform:scale(1.95);z-index:60;background:var(--bg-card);
+  filter:drop-shadow(0 22px 54px rgba(0,0,0,.62)) drop-shadow(0 0 24px rgba(57,211,83,.45))}
+.cell:hover{z-index:60}
+/* moldura em tom da marca no hover */
+.favo.full::before{content:'';position:absolute;inset:0;clip-path:inherit;padding:2px;
+  background:linear-gradient(150deg,rgba(57,211,83,.92),rgba(114,26,231,.85));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .45s;pointer-events:none}
+.favo.full:hover::before{opacity:1}
+/* FACE padrão: só a "foto" (iniciais / imagem) */
+.favo .face{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .35s,transform .45s;background-size:cover;background-position:center}
+.favo .face .fav-initials{font-family:var(--f-mono);font-weight:700;font-size:42px;color:var(--bg);letter-spacing:-.02em;line-height:1}
+.favo .face .fav-tag{position:absolute;bottom:25%;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,10,12,.72)}
+/* face com foto real do mentor */
+.favo .face.photo{background-color:var(--bg-surface)}
+.favo .face.photo .fav-initials{display:none}
+.favo .face.photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,12,.78),rgba(10,10,12,0) 42%);pointer-events:none}
+.favo .face.photo .fav-tag{bottom:9%;color:var(--text);z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.favo .detail .d-av.photo{background-size:cover;background-position:center;color:transparent;font-size:0}
+.favo.full:hover .face{opacity:0;transform:scale(.85)}
+/* DETALHE: aparece no hover dentro do favo maior */
+.favo .detail{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0 20%;text-align:center;opacity:0;transform:scale(.9);transition:opacity .4s .08s,transform .5s .08s;pointer-events:none}
+.favo.full:hover .detail{opacity:1;transform:scale(1)}
+.favo .detail .d-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--t1),var(--t2));display:grid;place-items:center;font-family:var(--f-mono);font-weight:700;font-size:10px;color:var(--bg)}
+.favo .detail .d-name{font-size:10px;font-weight:700;letter-spacing:-.01em;color:var(--text);line-height:1.1}
+.favo .detail .d-role{font-family:var(--f-mono);font-size:4.6px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.favo .detail .d-stack{display:flex;flex-wrap:wrap;gap:2.5px;justify-content:center}
+.favo .detail .d-stack span{font-family:var(--f-mono);font-size:4.2px;color:var(--text-mute);border:1px solid var(--line-strong);padding:1.5px 4px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
+.favo .detail .d-meta{display:flex;align-items:center;gap:7px;margin-top:1px}
+.favo .detail .d-corp{display:flex;flex-direction:column;gap:1px}
+.favo .detail .d-corp .lbl{font-family:var(--f-mono);font-size:3.8px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.favo .detail .d-corp .val{font-size:6px;font-weight:600;color:var(--text)}
+.favo .detail .d-years{font-family:var(--f-mono);font-size:4.2px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mute);text-align:left}
+.favo .detail .d-years b{display:block;font-size:12px;color:var(--accent);font-weight:700;line-height:1}
+/* fallback responsivo: sem hover, vira cards empilhados */
+@media(max-width:760px),(hover:none){
+  .honeycomb{display:flex;flex-direction:column;width:auto;max-width:480px;padding:0;gap:14px;margin-inline:auto}
+  .hc-row{flex-direction:column;gap:14px;width:100%}
+  .hc-row + .hc-row{margin-top:14px}
+  .hc-row.shift{margin-left:0}
+  .cell{width:100%;height:auto;margin:0;display:block}
+  .cell.empty{display:none}
+  .favo{height:auto;clip-path:none;border-radius:18px;border:1px solid var(--line);background:var(--bg-card)!important;padding:24px;filter:none}
+  .favo.full::before,.favo .face{display:none}
+  .favo .detail{position:static;opacity:1;transform:none;padding:0;align-items:flex-start;text-align:left;gap:10px}
+  .favo .detail .d-av{width:54px;height:54px;font-size:17px}
+  .favo .detail .d-name{font-size:17px}.favo .detail .d-role{font-size:10px}
+  .favo .detail .d-stack{gap:6px}.favo .detail .d-stack span{font-size:9px;padding:4px 9px}
+  .favo .detail .d-corp .lbl{font-size:9px}.favo .detail .d-corp .val{font-size:13px}
+  .favo .detail .d-years{font-size:10px}.favo .detail .d-years b{font-size:24px}
+  .favo .detail .d-meta{width:100%;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px;margin-top:6px}
+}
 
 /* ============ FAQ ============ */
 .faq{padding:clamp(100px,14vw,180px) clamp(20px,4vw,56px);background:var(--bg-elev);border-top:1px solid var(--line);position:relative;overflow:hidden}
@@ -1065,96 +1120,117 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
     </div>
     <p class="desc">Cada formação é liderada por profissionais que estão dentro das melhores empresas de tech do Brasil. Não é aluno ensinando aluno.</p>
   </div>
-  <div class="mentors-grid">
-    <article class="mcard" data-reveal data-cursor="hover">
-      <div class="mhead">
-        <div class="mavatar">RM</div>
-        <div class="minfo">
-          <div class="mname">Rodolfo Mori</div>
-          <div class="mrole">FUNDADOR · LEAD</div>
-        </div>
-      </div>
-      <div class="mstack"><span>Full Stack</span><span>React</span><span>Node</span></div>
-      <div class="mmeta">
-        <div class="mcorp"><span class="label">EX-EMPRESA</span><span class="val">iFood</span></div>
-        <div class="myears"><b>12</b>anos</div>
-      </div>
-    </article>
+  <div class="honeycomb" data-reveal>
 
-    <article class="mcard" data-reveal data-reveal-delay="1" data-cursor="hover">
-      <div class="mhead">
-        <div class="mavatar alt">MC</div>
-        <div class="minfo">
-          <div class="mname">Marina Costa</div>
-          <div class="mrole">FRONT-END LEAD</div>
-        </div>
+    <!-- Fileira 1 -->
+    <div class="hc-row">
+      <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
+      <div class="cell" data-cursor="hover">
+        <article class="favo full">
+          <div class="face photo" style="background-image:url('assets/RodolfoMori.webp')"><span class="fav-initials">RM</span><span class="fav-tag">Rodolfo Mori</span></div>
+          <div class="detail">
+            <span class="d-av photo" style="background-image:url('assets/RodolfoMori.webp')">RM</span>
+            <span class="d-name">Rodolfo Mori</span>
+            <span class="d-role">FUNDADOR · LEAD</span>
+            <span class="d-stack"><span>Full Stack</span><span>React</span><span>Node</span></span>
+            <span class="d-meta">
+              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">iFood</span></span>
+              <span class="d-years"><b>12</b>anos</span>
+            </span>
+          </div>
+        </article>
       </div>
-      <div class="mstack"><span>React</span><span>Next.js</span><span>TypeScript</span></div>
-      <div class="mmeta">
-        <div class="mcorp"><span class="label">EX-EMPRESA</span><span class="val">Nubank</span></div>
-        <div class="myears"><b>8</b>anos</div>
+      <div class="cell" data-cursor="hover">
+        <article class="favo full alt">
+          <div class="face"><span class="fav-initials">MC</span><span class="fav-tag">Marina Costa</span></div>
+          <div class="detail">
+            <span class="d-av">MC</span>
+            <span class="d-name">Marina Costa</span>
+            <span class="d-role">FRONT-END LEAD</span>
+            <span class="d-stack"><span>React</span><span>Next.js</span><span>TypeScript</span></span>
+            <span class="d-meta">
+              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Nubank</span></span>
+              <span class="d-years"><b>8</b>anos</span>
+            </span>
+          </div>
+        </article>
       </div>
-    </article>
+      <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
+    </div>
 
-    <article class="mcard" data-reveal data-reveal-delay="2" data-cursor="hover">
-      <div class="mhead">
-        <div class="mavatar">DA</div>
-        <div class="minfo">
-          <div class="mname">Diego Almeida</div>
-          <div class="mrole">BACK-END SENIOR</div>
-        </div>
+    <!-- Fileira 2 (central, mais larga) -->
+    <div class="hc-row">
+      <div class="cell" data-cursor="hover">
+        <article class="favo full">
+          <div class="face"><span class="fav-initials">DA</span><span class="fav-tag">Diego Almeida</span></div>
+          <div class="detail">
+            <span class="d-av">DA</span>
+            <span class="d-name">Diego Almeida</span>
+            <span class="d-role">BACK-END SENIOR</span>
+            <span class="d-stack"><span>Node.js</span><span>Go</span><span>Postgres</span></span>
+            <span class="d-meta">
+              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Mercado Livre</span></span>
+              <span class="d-years"><b>10</b>anos</span>
+            </span>
+          </div>
+        </article>
       </div>
-      <div class="mstack"><span>Node.js</span><span>Go</span><span>Postgres</span></div>
-      <div class="mmeta">
-        <div class="mcorp"><span class="label">EX-EMPRESA</span><span class="val">Mercado Livre</span></div>
-        <div class="myears"><b>10</b>anos</div>
+      <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
+      <div class="cell" data-cursor="hover">
+        <article class="favo full alt">
+          <div class="face"><span class="fav-initials">CR</span><span class="fav-tag">Camila Ribeiro</span></div>
+          <div class="detail">
+            <span class="d-av">CR</span>
+            <span class="d-name">Camila Ribeiro</span>
+            <span class="d-role">MOBILE LEAD</span>
+            <span class="d-stack"><span>React Native</span><span>iOS</span><span>Android</span></span>
+            <span class="d-meta">
+              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Stone</span></span>
+              <span class="d-years"><b>7</b>anos</span>
+            </span>
+          </div>
+        </article>
       </div>
-    </article>
+      <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
+      <div class="cell" data-cursor="hover">
+        <article class="favo full">
+          <div class="face"><span class="fav-initials">PS</span><span class="fav-tag">Pedro Santos</span></div>
+          <div class="detail">
+            <span class="d-av">PS</span>
+            <span class="d-name">Pedro Santos</span>
+            <span class="d-role">DEVOPS · CLOUD</span>
+            <span class="d-stack"><span>AWS</span><span>K8s</span><span>Docker</span></span>
+            <span class="d-meta">
+              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">XP Inc</span></span>
+              <span class="d-years"><b>9</b>anos</span>
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
 
-    <article class="mcard" data-reveal data-cursor="hover">
-      <div class="mhead">
-        <div class="mavatar alt">CR</div>
-        <div class="minfo">
-          <div class="mname">Camila Ribeiro</div>
-          <div class="mrole">MOBILE LEAD</div>
-        </div>
+    <!-- Fileira 3 -->
+    <div class="hc-row">
+      <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
+      <div class="cell" data-cursor="hover">
+        <article class="favo full alt">
+          <div class="face"><span class="fav-initials">JM</span><span class="fav-tag">Júlia Mendes</span></div>
+          <div class="detail">
+            <span class="d-av">JM</span>
+            <span class="d-name">Júlia Mendes</span>
+            <span class="d-role">IA · MACHINE LEARNING</span>
+            <span class="d-stack"><span>Python</span><span>PyTorch</span><span>LLMs</span></span>
+            <span class="d-meta">
+              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Inter</span></span>
+              <span class="d-years"><b>6</b>anos</span>
+            </span>
+          </div>
+        </article>
       </div>
-      <div class="mstack"><span>React Native</span><span>iOS</span><span>Android</span></div>
-      <div class="mmeta">
-        <div class="mcorp"><span class="label">EX-EMPRESA</span><span class="val">Stone</span></div>
-        <div class="myears"><b>7</b>anos</div>
-      </div>
-    </article>
+      <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
+      <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
+    </div>
 
-    <article class="mcard" data-reveal data-reveal-delay="1" data-cursor="hover">
-      <div class="mhead">
-        <div class="mavatar">PS</div>
-        <div class="minfo">
-          <div class="mname">Pedro Santos</div>
-          <div class="mrole">DEVOPS · CLOUD</div>
-        </div>
-      </div>
-      <div class="mstack"><span>AWS</span><span>K8s</span><span>Docker</span></div>
-      <div class="mmeta">
-        <div class="mcorp"><span class="label">EX-EMPRESA</span><span class="val">XP Inc</span></div>
-        <div class="myears"><b>9</b>anos</div>
-      </div>
-    </article>
-
-    <article class="mcard" data-reveal data-reveal-delay="2" data-cursor="hover">
-      <div class="mhead">
-        <div class="mavatar alt">JM</div>
-        <div class="minfo">
-          <div class="mname">Júlia Mendes</div>
-          <div class="mrole">IA · MACHINE LEARNING</div>
-        </div>
-      </div>
-      <div class="mstack"><span>Python</span><span>PyTorch</span><span>LLMs</span></div>
-      <div class="mmeta">
-        <div class="mcorp"><span class="label">EX-EMPRESA</span><span class="val">Inter</span></div>
-        <div class="myears"><b>6</b>anos</div>
-      </div>
-    </article>
   </div>
 </section>
 
@@ -1441,8 +1517,182 @@ function initCursor(){
   const cur=document.getElementById('cur'); const ring=document.getElementById('curRing');
   if(matchMedia('(hover:none)').matches){ cur.style.display='none'; ring.style.display='none'; return; }
   let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,cx=mx,cy=my;
-  const trailChars=['{','}','<','>',';','/','(',')','=>'];
-  const trails=Array.from({length:8},()=>{ const el=document.createElement('div'); el.className='cur-trail'; el.textContent=trailChars[Math.floor(Math.random()*trailChars.length)]; document.body.appendChild(el); return {el,x:mx,y:my,life:0}; });
+ const trailChars = [
+  // Símbolos
+  '{', '}', '[', ']', '(', ')',
+  '<', '>', '</>', '/>', '<>',
+  ';', ':', '.', ',', '=',
+  '==', '===', '!=', '!==',
+  '=>', '->', '&&', '||',
+  '!', '?', '??', '?.',
+  '++', '--', '+=', '-=',
+  '*=', '/=', '%', '#',
+  '$', '@', '_', '*',
+  '//', '/* */', '...',
+
+  // JavaScript / TypeScript
+  'const', 'let', 'var',
+  'function', 'return',
+  'async', 'await',
+  'Promise', 'class',
+  'interface', 'type',
+  'enum', 'import',
+  'export', 'default',
+  'new', 'this',
+  'try', 'catch',
+  'throw',
+
+  // React
+  'React',
+  'JSX',
+  'Props',
+  'Hook',
+  'State',
+  'Context',
+  'Component',
+  'Router',
+  'Next.js',
+  'Vite',
+  'useState',
+  'useEffect',
+  'useMemo',
+  'useCallback',
+  'useRef',
+  'useContext',
+
+  // Backend
+  'Node',
+  'Express',
+  'NestJS',
+  'API',
+  'REST',
+  'GraphQL',
+  'JWT',
+  'Prisma',
+  'ORM',
+  'Webhook',
+  'Socket',
+  'Server',
+
+  // Banco de Dados
+  'SQL',
+  'NoSQL',
+  'MongoDB',
+  'MySQL',
+  'Redis',
+  'SELECT',
+  'INSERT',
+  'UPDATE',
+  'DELETE',
+  'JOIN',
+  'WHERE',
+  'TABLE',
+  'INDEX',
+  'SCHEMA',
+
+  // DevOps
+  'Git',
+  'GitHub',
+  'Docker',
+  'CI/CD',
+  'Linux',
+  'SSH',
+  'AWS',
+  'Azure',
+  'Vercel',
+  'Netlify',
+  'Nginx',
+  'Deploy',
+
+  // IA
+  'AI',
+  'GPT',
+  'LLM',
+  'Agent',
+  'Agents',
+  'OpenAI',
+  'Prompt',
+  'Prompting',
+  'RAG',
+  'Automation',
+  'n8n',
+  'Workflow',
+
+  // Terminal
+  '>_',
+  '$',
+  '~/',
+  './',
+  '../',
+  '$ npm install',
+  '$ npm run dev',
+  '$ yarn dev',
+  '$ git push',
+  '$ git pull',
+  '$ docker run',
+  'root@server',
+
+  // HTTP
+  'GET',
+  'POST',
+  'PUT',
+  'PATCH',
+  'DELETE',
+  'HTTP',
+  'HTTPS',
+  '200 OK',
+  '201',
+  '401',
+  '403',
+  '404',
+  '500',
+
+  // HTML
+  '<div>',
+  '</div>',
+  '<section>',
+  '</section>',
+  '<main>',
+  '</main>',
+  '<header>',
+  '</header>',
+  '<footer>',
+  '</footer>',
+  '<form>',
+  '</form>',
+  '<button>',
+  '</button>',
+  '<input>',
+  '<span>',
+  '</span>',
+
+  // Arquivos
+  '.js',
+  '.ts',
+  '.tsx',
+  '.jsx',
+  '.json',
+  '.env',
+  '.html',
+  '.css',
+  '.md',
+
+  // Tech geral
+  'Frontend',
+  'Backend',
+  'FullStack',
+  'SaaS',
+  'Startup',
+  'Cloud',  
+  'Security',
+  'Testing',
+  'Debug',
+  'Code',
+  'Dev',
+
+ 
+];
+  const trails=Array.from({length:16},()=>{ const el=document.createElement('div'); el.className='cur-trail'; el.textContent=trailChars[Math.floor(Math.random()*trailChars.length)]; document.body.appendChild(el); return {el,x:mx,y:my,life:0}; });
   let lastT=0;
   window.addEventListener('mousemove',(e)=>{ mx=e.clientX; my=e.clientY; });
   function loop(){
@@ -1450,12 +1700,13 @@ function initCursor(){
     rx+=(mx-rx)*.18; ry+=(my-ry)*.18;
     cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;
     ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-    if(performance.now()-lastT>60){
+    if(performance.now()-lastT>150){
       const t=trails.shift();
+      gsap.killTweensOf(t.el);
       t.el.textContent=trailChars[Math.floor(Math.random()*trailChars.length)];
       t.el.style.left=mx+'px'; t.el.style.top=my+'px';
-      t.el.style.opacity='.7'; t.el.style.transform='translate(-50%,-50%) scale(1)';
-      gsap.to(t.el,{x:(Math.random()-.5)*40,y:-40+(Math.random()-.5)*40,opacity:0,scale:.4,duration:1.2,ease:'power2.out'});
+      t.el.style.opacity='.8'; t.el.style.transform='translate(-50%,-50%) scale(1)';
+      gsap.fromTo(t.el,{x:0,y:0,scale:1,opacity:.8},{x:(Math.random()-.5)*26,y:-54+(Math.random()-.5)*20,opacity:0,scale:.45,duration:2.2,ease:'power2.out'});
       trails.push(t); lastT=performance.now();
     }
     requestAnimationFrame(loop);
@@ -1581,6 +1832,70 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',(e)=>{ const id=a.getAttribute('href').slice(1); const t=document.getElementById(id); if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); } });
 });
 
+/* ===== COLMEIA — camada de animação premium (GSAP) =====
+   IMPORTANTE: a flutuação/parallax vivem no .cell; o hover de expansão
+   (scale 1.95 que mostra os dados) continua no .favo via CSS, intocado.
+   Como são elementos diferentes, os transforms se compõem sem conflito. */
+function initHoneycomb(){
+  const hive = document.querySelector('.honeycomb');
+  if(!hive || !window.gsap) return;
+
+  const cells   = gsap.utils.toArray('.honeycomb .cell');
+  const empties = gsap.utils.toArray('.honeycomb .favo.empty');
+
+  const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canFloat = window.matchMedia('(min-width:761px) and (hover:hover)').matches && !reduce;
+
+  /* 1) FLUTUAÇÃO CONTÍNUA + 4) PARALLAX — só em telas com mouse */
+  if(canFloat){
+    const setters = [];
+    cells.forEach((cell, i)=>{
+      gsap.set(cell, {willChange:'transform', transformOrigin:'50% 50%'});
+      const ay = gsap.utils.random(7, 13);     // amplitude vertical
+      const ax = gsap.utils.random(3, 7);      // amplitude horizontal
+      const ar = gsap.utils.random(0.7, 1.5);  // rotação sutil (graus)
+      // respiração: oscila em torno de 0 usando x/y/rotation,
+      // deixando xPercent/yPercent livres para o parallax (GSAP soma os dois)
+      gsap.fromTo(cell,
+        { x:-ax, y:-ay, rotation:-ar },
+        { x:ax, y:ay, rotation:ar,
+          duration: gsap.utils.random(3.8, 6.5),
+          delay:    gsap.utils.random(0, 2.4),
+          ease:'sine.inOut', repeat:-1, yoyo:true, force3D:true });
+
+      setters.push({
+        d:  gsap.utils.random(0.45, 1.35),   // profundidade própria de cada favo
+        qx: gsap.quickTo(cell, 'xPercent', {duration:0.7, ease:'power3'}),
+        qy: gsap.quickTo(cell, 'yPercent', {duration:0.7, ease:'power3'})
+      });
+    });
+
+    const section = document.getElementById('mentores') || hive;
+    const INT = 4; // intensidade baixa (% do próprio tamanho)
+    section.addEventListener('pointermove', (e)=>{
+      const r  = section.getBoundingClientRect();
+      const mx = ((e.clientX - r.left)/r.width  - 0.5) * 2;  // -1..1
+      const my = ((e.clientY - r.top )/r.height - 0.5) * 2;  // -1..1
+      setters.forEach(s=>{ s.qx(mx*INT*s.d); s.qy(my*INT*s.d); });
+    });
+    section.addEventListener('pointerleave', ()=>{
+      setters.forEach(s=>{ s.qx(0); s.qy(0); });
+    });
+  }
+
+  /* 3) HOVER DOS FAVOS VAZIOS — feedback leve, sem abrir nada */
+  empties.forEach(favo=>{
+    gsap.set(favo, {transformOrigin:'50% 50%',
+      filter:'drop-shadow(0 4px 12px rgba(0,0,0,.35)) brightness(1)'});
+    favo.addEventListener('pointerenter', ()=> gsap.to(favo, {
+      scale:1.06, y:-6, duration:.45, ease:'power3.out',
+      filter:'drop-shadow(0 12px 26px rgba(57,211,83,.30)) brightness(1.22)'}));
+    favo.addEventListener('pointerleave', ()=> gsap.to(favo, {
+      scale:1, y:0, duration:.55, ease:'power3.out',
+      filter:'drop-shadow(0 4px 12px rgba(0,0,0,.35)) brightness(1)'}));
+  });
+}
+
 function initAll(){
   gsap.registerPlugin(ScrollTrigger);
   initLenis();
@@ -1600,6 +1915,7 @@ function initAll(){
   initFaq();
   initMarqSpeed();
   initNavHide();
+  initHoneycomb();
   setTimeout(()=> ScrollTrigger.refresh(),600);
 }
 </script>
