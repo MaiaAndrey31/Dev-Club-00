@@ -60,10 +60,10 @@ img,svg,canvas{display:block;max-width:100%}
 
 /* ============ CURSOR ============ */
 .cur{position:fixed;left:0;top:0;width:12px;height:12px;background:var(--accent);border-radius:50%;z-index:10001;pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .4s var(--e-out),height .4s var(--e-out),background .3s}
-.cur.hov{width:80px;height:80px;background:var(--accent-glow)}
+.cur.hov{width:20px;height:20px;background:var(--accent-glow)}
 .cur.btn{width:0;height:0}
 .cur-ring{position:fixed;left:0;top:0;width:32px;height:32px;border:1.5px solid rgba(57,211,83,.5);border-radius:50%;z-index:10000;pointer-events:none;transform:translate(-50%,-50%);transition:width .35s var(--e-out),height .35s var(--e-out),border-color .3s}
-.cur-ring.hov{width:90px;height:90px;border-color:rgba(255,255,255,.3)}
+.cur-ring.hov{width:30px;height:30px;border-color:rgba(255,255,255,.3)}
 .cur-trail{position:fixed;pointer-events:none;z-index:9998;font-family:var(--f-mono);font-size:11px;color:var(--accent);text-shadow:0 0 8px var(--accent);opacity:0;transform:translate(-50%,-50%);will-change:transform,opacity}
 
 /* ============ NAV ============ */
@@ -541,25 +541,524 @@ img,svg,canvas{display:block;max-width:100%}
 .projects-foot .pf-cta:hover .arr{transform:translateX(6px)}
 
 /* ============ MENTORES ============ */
-.mentors{padding:clamp(100px,14vw,180px) clamp(20px,4vw,56px);background:var(--bg);border-top:1px solid var(--line);position:relative;overflow:hidden}
+/* .mentors{padding:clamp(100px,14vw,180px) clamp(20px,4vw,56px);background:var(--bg);border-top:1px solid var(--line);position:relative;overflow:hidden}
 .mentors::before{content:'';position:absolute;right:-10vw;top:-10vw;width:50vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(57,211,83,.06),transparent 60%);pointer-events:none}
 .mentors-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:80px;flex-wrap:wrap;max-width:1500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
 .mentors-head h2{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:800;letter-spacing:-.04em;line-height:.95;max-width:760px;text-transform:uppercase;font-stretch:75%;margin-top:8px}
 .mentors-head h2 em{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--accent);font-stretch:100%}
 .mentors-head .desc{font-size:15px;color:var(--text-mute);max-width:380px;line-height:1.6}
-/* ===== COLMEIA / HONEYCOMB ===== */
+
 .honeycomb{--w:172px;--h:198px;--gap:8px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;margin:24px auto 0;padding:calc(var(--h)*.5) 0}
 .hc-row{display:flex;justify-content:center}
 .hc-row + .hc-row{margin-top:calc(var(--h) * -0.255)}
 .hc-row.shift{margin-left:calc((var(--w) + var(--gap)) / 2)}
-/* cell = geometria do favo; favo = favo visível */
-.cell{width:var(--w);height:var(--h);margin:calc(var(--gap)/2);position:relative;display:grid;place-items:center}
+
+.cell{width:var(--w);height:var(--h);margin:calc(var(--gap)/2);position:relative;display:grid;place-items:center;border-radius:15px}
 .favo{width:100%;height:100%;position:relative;
   clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
-  transition:transform .55s var(--e-out),filter .55s,background .45s;}
+  transition:transform .55s var(--e-out),filter .55s,background .45s;} */
 
-/* --- FAVO VAZIO (decorativo) --- */
-.favo.empty{transition:none;background:
+  .mentors {
+    padding: clamp(100px, 14vw, 180px) clamp(20px, 4vw, 56px);
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    position: relative;
+    overflow: hidden
+}
+
+.mentors::before {
+    content: '';
+    position: absolute;
+    right: -10vw;
+    top: -10vw;
+    width: 50vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(57, 211, 83, .06), transparent 60%);
+    pointer-events: none
+}
+
+.mentors-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 0px;
+    flex-wrap: wrap;
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1
+}
+
+.mentors-head h2 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    line-height: .95;
+    max-width: 760px;
+    text-transform: uppercase;
+    font-stretch: 75%;
+    margin-top: 8px
+}
+
+.mentors-head h2 em {
+    font-family: var(--f-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-stretch: 100%
+}
+
+.mentors-head .desc {
+    font-size: 15px;
+    color: var(--text-mute);
+    max-width: 380px;
+    line-height: 1.6
+}
+
+/* ===== COLMEIA / HONEYCOMB ===== */
+.honeycomb {
+    /* --w: 172px;
+    --h: 198px; */
+    --w: 282px;
+    --h: 288px;
+    --gap: 8px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    max-width: 100%;
+    margin: 0px auto 0;
+    padding: calc(var(--h)*.3) 0
+}
+
+.hc-row {
+    display: flex;
+    justify-content: center
+}
+
+.hc-row+.hc-row {
+    margin-top: calc(var(--h) * -0.255)
+}
+
+.hc-row.shift {
+    margin-left: calc((var(--w) + var(--gap)) / 2)
+}
+
+/* cell = geometria do favo; favo = favo visível */
+.cell {
+    width: var(--w);
+    height: var(--h);
+    margin: calc(var(--gap)/2);
+    position: relative;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+  
+}
+
+.favo {
+  
+    width: 100%;
+    height: 100%;
+    position: relative;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    transition: transform .55s var(--e-out), filter .55s, background .45s;
+}
+
+.favo.empty {
+    transition: none;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(57, 211, 83, .05), transparent 60%),
+        var(--bg-surface);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .35))
+}
+
+.favo.empty::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    clip-path: inherit;
+    background: linear-gradient(150deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, 0) 60%);
+    pointer-events: none
+}
+
+.favo.empty .dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    transform: translate(-50%, -50%)
+}
+
+/* --- FAVO PREENCHIDO (mentor) --- */
+.favo.full {
+
+
+    cursor: none;
+    background-image: linear-gradient(to bottom, #39d353, #2ec145, #23b036, #159f28, #008e18);
+    filter: drop-shadow(0 8px 22px rgba(0, 0, 0, .45))
+}
+
+.favo.full.alt {
+    --t1: var(--purple);
+    --t2: var(--accent-glow)
+}
+
+.favo.full:hover {
+    transform: scale(1.5);
+    z-index: 60;
+    background: var(--bg-card);
+    filter: drop-shadow(0 22px 54px rgba(0, 0, 0, .62)) drop-shadow(0 0 24px rgba(57, 211, 83, .45))
+}
+
+.cell:hover {
+    z-index: 60
+}
+
+/* moldura em tom da marca no hover */
+.favo.full::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    clip-path: inherit;
+    padding: 2px;
+    background: linear-gradient(150deg, rgba(57, 211, 83, .92), rgba(114, 26, 231, .85));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .45s;
+    pointer-events: none
+}
+
+.favo.full:hover::before {
+    opacity: 1
+}
+
+/* FACE padrão: só a "foto" (iniciais / imagem) */
+.favo .face {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transition: opacity .35s, transform .45s;
+    background-size: cover;
+    background-position: center
+
+}
+
+.favo .face::before{
+  
+    content:'';
+    position:absolute;
+    inset:0;
+    clip-path:inherit;
+    pointer-events:none;
+}
+
+.favo .face .fav-initials {
+    font-family: var(--f-mono);
+    font-weight: 700;
+    font-size: 42px;
+    color: #fff;
+    letter-spacing: -.02em;
+    line-height: 1
+}
+
+.favo .face .fav-tag {
+    position: absolute;
+    bottom: 25%;
+    font-family: var(--f-sans);
+    font-size: 0.8em;
+    letter-spacing: .14em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #fff;
+    padding-bottom: 15px;
+}
+
+/* face com foto real do mentor */
+.favo .face.photo {
+    background-color: var(--bg-surface)
+}
+
+.favo .face.photo .fav-initials {
+    display: none
+}
+
+.favo .face.photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(57, 211, 83, .78), rgba(0, 142, 24, 0) 50%);
+    pointer-events: none
+}
+
+.favo .face.photo .fav-tag {
+    bottom: 9%;
+    color:#fff;
+    z-index: 1;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .7)
+}
+
+.favo .detail .d-av.photo {
+    background-size: cover;
+    background-position: center;
+    color: transparent;
+    width: 30px;
+    font-size: 0
+}
+
+.photo-back-mentor {
+    width: 50%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.info-mentor-back{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+
+}
+
+.favo.full:hover .face {
+    opacity: 0;
+    transform: scale(.85)
+}
+
+/* DETALHE: aparece no hover dentro do favo maior HOVER BACK */
+.favo .detail {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8em;
+    text-align: center;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity .4s .08s, transform .5s .08s;
+    pointer-events: none
+}
+
+.favo.full:hover .detail {
+    opacity: 1;
+    transform: scale(1)
+}
+
+.favo .detail .d-av {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--t1), var(--t2));
+    display: grid;
+    place-items: center;
+    font-family: var(--f-mono);
+    font-weight: 700;
+    font-size: 10px;
+    color: var(--bg)
+}
+
+.favo .detail .d-name {
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--text);
+    line-height: 1.1
+}
+
+.favo .detail .d-role {
+    font-family: var(--f-mono);
+    font-size: 0.5em;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent)
+}
+
+.favo .detail .d-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5px;
+    justify-content: center
+}
+
+.favo .detail .d-stack span {
+    font-family: var(--f-mono);
+    font-size: 0.3em;
+    color: var(--text-mute);
+    border: 1px solid var(--line-strong);
+    padding: 1.5px 4px;
+    border-radius: 100px;
+    letter-spacing: .06em;
+    text-transform: uppercase
+}
+
+.favo .detail .d-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 1px
+}
+
+.favo .detail .d-corp {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: 0.5em;
+}
+
+.favo .detail .d-corp .lbl {
+    font-family: var(--f-mono);
+    font-size: 0.5em;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text-dim)
+}
+
+.favo .detail .d-corp .val {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--text)
+}
+
+.favo .detail .d-years {
+    font-family: var(--f-mono);
+    font-size: 0.5em;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    text-align: left
+}
+
+.favo .detail .d-years b {
+    display: block;
+    font-size: 2em;
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1
+}
+
+/* fallback responsivo: sem hover, vira cards empilhados */
+@media(max-width:760px), (hover:none) {
+    .honeycomb {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        max-width: 480px;
+        padding: 0;
+        gap: 14px;
+        margin-inline: auto
+    }
+
+    .hc-row {
+        flex-direction: column;
+        gap: 14px;
+        width: 100%
+    }
+
+    .hc-row+.hc-row {
+        margin-top: 14px
+    }
+
+    .hc-row.shift {
+        margin-left: 0
+    }
+
+    .cell {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        display: block
+    }
+
+    .cell.empty {
+        display: none
+    }
+
+    .favo {
+        height: auto;
+        clip-path: none;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--bg-card) !important;
+        padding: 24px;
+        filter: none
+    }
+
+    .favo.full::before,
+    .favo .face {
+        display: none
+    }
+
+    .favo .detail {
+        position: static;
+        opacity: 1;
+        transform: none;
+        padding: 0;
+        align-items: flex-start;
+        text-align: left;
+        gap: 10px
+    }
+
+    .favo .detail .d-av {
+        width: 54px;
+        height: 54px;
+        font-size: 17px
+    }
+
+    .favo .detail .d-name {
+        font-size: 17px
+    }
+
+    .favo .detail .d-role {
+        font-size: 10px
+    }
+
+    .favo .detail .d-stack {
+        gap: 6px
+    }
+
+    .favo .detail .d-stack span {
+        font-size: 9px;
+        padding: 4px 9px
+    }
+
+    .favo .detail .d-corp .lbl {
+        font-size: 9px
+    }
+
+    .favo .detail .d-corp .val {
+        font-size: 13px
+    }
+
+    .favo .detail .d-years {
+        font-size: 10px
+    }
+
+    .favo .detail .d-years b {
+        font-size: 24px
+    }
+
+    .favo .detail .d-meta {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        margin-top: 6px
+    }
+}
+
+/* .favo.empty{transition:none;background:
    radial-gradient(circle at 50% 42%,rgba(57,211,83,.05),transparent 60%),
    var(--bg-surface);
   filter:drop-shadow(0 4px 12px rgba(0,0,0,.35))}
@@ -568,7 +1067,7 @@ img,svg,canvas{display:block;max-width:100%}
 .favo.empty .dot{position:absolute;top:50%;left:50%;width:6px;height:6px;border-radius:50%;
   background:var(--line-strong);transform:translate(-50%,-50%)}
 
-/* --- FAVO PREENCHIDO (mentor) --- */
+
 .favo.full{--t1:var(--accent);--t2:var(--purple);cursor:none;
   background:linear-gradient(150deg,var(--t1),var(--t2));
   filter:drop-shadow(0 8px 22px rgba(0,0,0,.45))}
@@ -576,24 +1075,24 @@ img,svg,canvas{display:block;max-width:100%}
 .favo.full:hover{transform:scale(1.95);z-index:60;background:var(--bg-card);
   filter:drop-shadow(0 22px 54px rgba(0,0,0,.62)) drop-shadow(0 0 24px rgba(57,211,83,.45))}
 .cell:hover{z-index:60}
-/* moldura em tom da marca no hover */
+
 .favo.full::before{content:'';position:absolute;inset:0;clip-path:inherit;padding:2px;
   background:linear-gradient(150deg,rgba(57,211,83,.92),rgba(114,26,231,.85));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .45s;pointer-events:none}
 .favo.full:hover::before{opacity:1}
-/* FACE padrão: só a "foto" (iniciais / imagem) */
+
 .favo .face{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .35s,transform .45s;background-size:cover;background-position:center}
 .favo .face .fav-initials{font-family:var(--f-mono);font-weight:700;font-size:42px;color:var(--bg);letter-spacing:-.02em;line-height:1}
 .favo .face .fav-tag{position:absolute;bottom:25%;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,10,12,.72)}
-/* face com foto real do mentor */
+
 .favo .face.photo{background-color:var(--bg-surface)}
 .favo .face.photo .fav-initials{display:none}
 .favo .face.photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,12,.78),rgba(10,10,12,0) 42%);pointer-events:none}
 .favo .face.photo .fav-tag{bottom:9%;color:var(--text);z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.7)}
 .favo .detail .d-av.photo{background-size:cover;background-position:center;color:transparent;font-size:0}
 .favo.full:hover .face{opacity:0;transform:scale(.85)}
-/* DETALHE: aparece no hover dentro do favo maior */
+
 .favo .detail{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0 20%;text-align:center;opacity:0;transform:scale(.9);transition:opacity .4s .08s,transform .5s .08s;pointer-events:none}
 .favo.full:hover .detail{opacity:1;transform:scale(1)}
 .favo .detail .d-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--t1),var(--t2));display:grid;place-items:center;font-family:var(--f-mono);font-weight:700;font-size:10px;color:var(--bg)}
@@ -607,7 +1106,7 @@ img,svg,canvas{display:block;max-width:100%}
 .favo .detail .d-corp .val{font-size:6px;font-weight:600;color:var(--text)}
 .favo .detail .d-years{font-family:var(--f-mono);font-size:4.2px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mute);text-align:left}
 .favo .detail .d-years b{display:block;font-size:12px;color:var(--accent);font-weight:700;line-height:1}
-/* fallback responsivo: sem hover, vira cards empilhados */
+
 @media(max-width:760px),(hover:none){
   .honeycomb{display:flex;flex-direction:column;width:auto;max-width:480px;padding:0;gap:14px;margin-inline:auto}
   .hc-row{flex-direction:column;gap:14px;width:100%}
@@ -624,7 +1123,7 @@ img,svg,canvas{display:block;max-width:100%}
   .favo .detail .d-corp .lbl{font-size:9px}.favo .detail .d-corp .val{font-size:13px}
   .favo .detail .d-years{font-size:10px}.favo .detail .d-years b{font-size:24px}
   .favo .detail .d-meta{width:100%;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px;margin-top:6px}
-}
+} */
 
 /* ============ FAQ ============ */
 .faq{padding:clamp(100px,14vw,180px) clamp(20px,4vw,56px);background:var(--bg-elev);border-top:1px solid var(--line);position:relative;overflow:hidden}
@@ -662,7 +1161,7 @@ img,svg,canvas{display:block;max-width:100%}
 </head>
 <body>
 
-<!-- LOADER -->
+<!-- LOADER para desenvolvimento oculte -->
 <div class="loader" id="loader">
   <div class="loader-inner">
     <div class="loader-mono">
@@ -1122,27 +1621,31 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
   </div>
   <div class="honeycomb" data-reveal>
 
-    <!-- Fileira 1 -->
+    <!-- Fileira 1 HOVER BACK -->
     <div class="hc-row">
       <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
       <div class="cell" data-cursor="hover">
         <article class="favo full">
           <div class="face photo" style="background-image:url('assets/RodolfoMori.webp')"><span class="fav-initials">RM</span><span class="fav-tag">Rodolfo Mori</span></div>
           <div class="detail">
-            <span class="d-av photo" style="background-image:url('assets/RodolfoMori.webp')">RM</span>
-            <span class="d-name">Rodolfo Mori</span>
-            <span class="d-role">FUNDADOR · LEAD</span>
-            <span class="d-stack"><span>Full Stack</span><span>React</span><span>Node</span></span>
-            <span class="d-meta">
-              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">iFood</span></span>
-              <span class="d-years"><b>12</b>anos</span>
-            </span>
+            <img class="photo-back-mentor" src="assets/RodolfoMori.webp" alt="Rodolfo Mori">
+            <!-- <span class="d-av photo" style="background-image:url('assets/RodolfoMori.webp')">RM</span> -->
+            <div class="info-mentor-back">
+              <span class="d-name">Rodolfo Mori</span>
+              <span class="d-role">FUNDADOR · LEAD</span>
+              <span class="d-stack"><span>Full Stack</span><span>React</span><span>Node</span></span>
+              <span class="d-meta">
+                <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">iFood</span></span>
+                <span class="d-years"><b>12</b>anos</span>
+              </span>
+            </div>
+           
           </div>
         </article>
       </div>
       <div class="cell" data-cursor="hover">
         <article class="favo full alt">
-          <div class="face"><span class="fav-initials"></span><span class="fav-tag">Fernanda Costa</span></div>
+          <div class="face"><span class="fav-initials">FC</span><span class="fav-tag">Fernanda Costa</span></div>
           <div class="detail">
             <span class="d-av"></span>
             <span class="d-name">Fernanda Costa</span>
@@ -1412,7 +1915,7 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
 </footer>
 
 <script>
-/* LOADER */
+/* LOADER para desativar oculte o setTimeout e chame o initAll*/
 const loader = document.getElementById('loader');
 const letters = document.querySelectorAll('.loader-mono .l');
 letters.forEach((l,i)=> setTimeout(()=> l.classList.add('on'), 80*i));
@@ -1421,6 +1924,7 @@ statuses.forEach((s,i)=>{
   setTimeout(()=>{ statuses.forEach(x=> document.getElementById(x).classList.remove('on')); document.getElementById(s).classList.add('on'); }, 500 + i*500);
 });
 setTimeout(()=>{ loader.classList.add('done'); initAll(); }, 2400);
+// initAll()
 
 /* HERO PARTICLES */
 function initHeroBg(){
