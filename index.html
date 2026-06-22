@@ -77,7 +77,12 @@ img,svg,canvas{display:block;max-width:100%}
 .nav-brand{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none}
 .nav-brand .brand-mark{width:28px;height:28px;color:var(--accent);flex-shrink:0;transition:transform .5s var(--e-out)}
 .nav-brand:hover .brand-mark{transform:rotate(-6deg) scale(1.06)}
-.nav-brand .brand-text{font-family:var(--f-mono);font-weight:700;font-size:16px;letter-spacing:-.02em;color:#fff}
+.nav-brand .brand-text{font-family:var(--f-mono);font-weight:700;font-size:1.3em;letter-spacing:-.02em;color:#fff}
+.nav-brand .brand-text:hover{
+  text-shadow:0 0 8px var(--accent);
+  color:var(--accent);
+  transition: ease-in-out .3s, color .3s var(--e-out),text-shadow .3s var(--e-out);
+}
 .nav-brand .brand-text .dot{color:var(--accent)}
 @media(max-width:560px){.nav-brand .brand-text{display:none}}
 .nav-link{font-size:13px;font-weight:500;color:#fff;position:relative;overflow:hidden;padding:8px 0;text-transform:uppercase;letter-spacing:.05em}
@@ -106,6 +111,21 @@ img,svg,canvas{display:block;max-width:100%}
 /* =========================================
    HERO — NEUROX REPLICA (compact, centered, marquee logos)
 ========================================= */
+
+.brand-logo{
+  width:2.3em;
+  height:2.3em;
+   transition: ease-in-out .3s;
+}
+
+.brand-logo:hover{
+  width:2.5em;
+  height:2.5em;
+  transition: ease-in-out .3s;
+
+}
+
+
 .hero{
   position:relative;
   padding: clamp(110px,14vh,160px) clamp(20px,4vw,40px) clamp(60px,8vw,100px);
@@ -367,7 +387,8 @@ img,svg,canvas{display:block;max-width:100%}
 .fcard .tag{position:absolute;top:28px;right:88px;z-index:5;font-family:var(--f-mono);font-size:9px;color:var(--accent);border:1px solid var(--accent);padding:4px 10px;border-radius:100px;letter-spacing:.15em;text-transform:uppercase}
 .fcard .visual{flex:1;position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(135deg,var(--bg-surface),var(--bg-elev));display:grid;place-items:center;margin:40px 0 24px}
 .fcard .visual::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(57,211,83,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(57,211,83,.05) 1px,transparent 1px);background-size:22px 22px;mask-image:radial-gradient(circle at 50% 50%,#000,transparent 75%)}
-.fcard .glyph{font-family:var(--f-mono);font-size:clamp(3.5rem,7vw,6rem);font-weight:700;color:var(--accent);letter-spacing:-.05em;position:relative;z-index:2;text-shadow:0 0 50px rgba(57,211,83,.6)}
+.fcard .glyph{width:100%; height:100%; position:relative; z-index:2; overflow:hidden; }
+.fcard .glyph img {width:100%;height:100%;display:block;object-fit:cover;}
 .fcard .reveal{position:absolute;inset:0;z-index:3;background:#050507;border-radius:16px;clip-path:circle(0% at 50% 50%);transition:clip-path 1s var(--e-io);padding:28px;font-family:var(--f-mono);font-size:11px;color:var(--text);line-height:1.7;text-align:left;border:1px solid var(--accent);box-shadow:inset 0 0 60px rgba(57,211,83,.1)}
 .fcard:hover .reveal{clip-path:circle(150% at 50% 50%)}
 .fcard .reveal .kw{color:var(--accent)}
@@ -378,6 +399,20 @@ img,svg,canvas{display:block;max-width:100%}
 .fcard .reveal .term span:nth-child(1){background:#FF5C39}
 .fcard .reveal .term span:nth-child(2){background:#FFD96B}
 .fcard .reveal .term span:nth-child(3){background:var(--accent)}
+.fcard .reveal code{
+    display:block;
+    margin-top:34px;
+    white-space:pre-wrap;
+    font-family:var(--f-mono);
+    font-size:11px;
+    line-height:1.75;
+    text-align:left;
+}
+
+.fcard .reveal .fn{color:#74c0fc;}
+.fcard .reveal .prop{color:#ff9f43;}
+.fcard .reveal .num{color:#c792ea;}
+.fcard .reveal .bool{color:#ff6b6b;}
 .fcard h3{font-size:clamp(1.4rem,2vw,1.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin-bottom:6px}
 .fcard p{font-size:12.5px;color:var(--text-mute);line-height:1.5}
 .fcard .arrow{position:absolute;bottom:28px;right:28px;z-index:5;width:52px;height:52px;border-radius:50%;background:var(--accent);color:var(--bg);display:grid;place-items:center;font-size:20px;transform:scale(.5);opacity:0;transition:transform .5s var(--e-out),opacity .4s}
@@ -776,13 +811,13 @@ img,svg,canvas{display:block;max-width:100%}
 .favo .face .fav-tag {
     position: absolute;
     bottom: 25%;
-    font-family: var(--f-sans);
-    font-size: 0.8em;
+    font-family: var(--f-mono);
+    font-size: 1em;
     letter-spacing: .14em;
     font-weight: 800;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: #fff;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
 }
 
 /* face com foto real do mentor */
@@ -1162,7 +1197,7 @@ img,svg,canvas{display:block;max-width:100%}
 <body>
 
 <!-- LOADER para desenvolvimento oculte -->
-<div class="loader" id="loader">
+<!-- <div class="loader" id="loader">
   <div class="loader-inner">
     <div class="loader-mono">
       <span class="l">D</span><span class="l">E</span><span class="l">V</span><span class="l dot">.</span><span class="l">C</span><span class="l">L</span><span class="l">U</span><span class="l">B</span>
@@ -1176,7 +1211,7 @@ img,svg,canvas{display:block;max-width:100%}
       <span id="s4">PRONTO</span>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- CURSOR -->
 <div class="cur" id="cur"></div>
@@ -1208,28 +1243,30 @@ img,svg,canvas{display:block;max-width:100%}
 <nav class="nav" id="nav">
   <div class="nav-side">
     <a href="#" class="nav-brand" aria-label="DevClub" data-cursor="hover">
-      <svg class="brand-mark" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- pixel-art DC mark — chunky green grid -->
+      <img src="assets/logo-dev.webp" alt="Logo" class="brand-logo">
+      <!-- <svg class="brand-mark" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+     
         <g fill="currentColor">
-          <!-- D (cols 0-2) -->
+         
           <rect x="0"  y="0"  width="8" height="8"/><rect x="8"  y="0"  width="8" height="8"/><rect x="16" y="0"  width="8" height="8"/>
           <rect x="0"  y="8"  width="8" height="8"/>                                          <rect x="16" y="8"  width="8" height="8"/>
           <rect x="0"  y="16" width="8" height="8"/>                                          <rect x="16" y="16" width="8" height="8"/>
           <rect x="0"  y="24" width="8" height="8"/>                                          <rect x="16" y="24" width="8" height="8"/>
           <rect x="0"  y="32" width="8" height="8"/>                                          <rect x="16" y="32" width="8" height="8"/>
           <rect x="0"  y="40" width="8" height="8"/><rect x="8"  y="40" width="8" height="8"/><rect x="16" y="40" width="8" height="8"/>
-          <!-- C (cols 4-6) -->
+        
           <rect x="32" y="0"  width="8" height="8"/><rect x="40" y="0"  width="8" height="8"/><rect x="48" y="0"  width="8" height="8"/>
           <rect x="32" y="8"  width="8" height="8"/>
           <rect x="32" y="16" width="8" height="8"/>
           <rect x="32" y="24" width="8" height="8"/>
           <rect x="32" y="32" width="8" height="8"/>
           <rect x="32" y="40" width="8" height="8"/><rect x="40" y="40" width="8" height="8"/><rect x="48" y="40" width="8" height="8"/>
-          <!-- corner accent (bottom right) -->
+          
           <rect x="48" y="48" width="8" height="8"/>
         </g>
-      </svg>
-      <span class="brand-text">Dev<span class="dot">.</span>Club</span>
+      </svg> -->
+      <!-- <span class="brand-text">Dev<span class="dot">.</span>Club</span> -->
+      <span class="brand-text">DevClub</span>
     </a>
   </div>
   <div class="nav-side" style="justify-content:center;gap:30px">
@@ -1399,13 +1436,35 @@ img,svg,canvas{display:block;max-width:100%}
 
       <article class="fcard depth-1" data-cursor="hover">
         <div class="num-pill">01 / 05</div><div class="tag">EM DESTAQUE</div><div class="cut"></div>
-        <div class="visual"><div class="glyph">{ FS }</div>
+        <!-- <div class="visual"><div class="glyph">{ FS }</div> -->
+        <div class="visual"><div class="glyph">
+          <img src="assets/formacoes-1.webp" alt="Fullstack JS">
+        </div>
           <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
-<pre style="margin-top:24px;white-space:pre-wrap;"><span class="cmt">// Fullstack JS — 1100h</span>
-<span class="kw">import</span> { React, Node } <span class="kw">from</span> <span class="str">'devclub'</span>;
-<span class="kw">const</span> dev = <span class="kw">await</span> <span class="kw">new</span> Career();
-<span class="kw">await</span> dev.<span class="kw">deploy</span>(<span class="str">'production'</span>);
-<span class="cmt">// → vaga em 6 meses ✓</span></pre>
+         
+           <pre style="margin-top:24px;white-space:pre-wrap;">
+              <span class="cmt">// DevClub FullStack Journey</span>
+
+              <span class="kw">import</span> React <span class="kw">from</span> <span class="str">'react'</span>;
+              <span class="kw">import</span> express <span class="kw">from</span> <span class="str">'express'</span>;
+
+              <span class="kw">const</span> app = <span class="kw">new</span> <span class="fn">Career</span>();
+
+              app.<span class="prop">frontend</span>({
+                framework: <span class="str">'React'</span>,
+                styling: <span class="str">'Tailwind CSS'</span>
+              });
+
+              app.<span class="prop">backend</span>({
+                runtime: <span class="str">'Node.js'</span>,
+                database: <span class="str">'PostgreSQL'</span>
+              });
+
+              <span class="kw">await</span> app.<span class="fn">deploy</span>();
+
+              <span class="cmt">// ✔ Projeto publicado</span>
+           </pre>
+
           </div>
         </div>
         <h3>Formação FullStack JavaScript</h3>
@@ -1416,65 +1475,155 @@ img,svg,canvas{display:block;max-width:100%}
       <div class="fcallout"><span class="s">_manifesto</span>Aprenda <em>fazendo</em>.<br/>Centenas de projetos reais.</div>
 
       <article class="fcard depth-2" data-cursor="hover">
-        <div class="num-pill">02 / 05</div><div class="tag">REACT</div><div class="cut"></div>
-        <div class="visual"><div class="glyph">{ FE }</div>
-          <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
-<pre style="margin-top:24px;white-space:pre-wrap;"><span class="cmt">// Front-end Specialist</span>
-<span class="kw">export default function</span> App() {
-  <span class="kw">return</span> &lt;<span class="str">UI</span> /&gt;;
-}
-<span class="cmt">// React · Next.js · TS</span></pre>
-          </div>
-        </div>
-        <h3>Formação Front-end</h3>
-        <p>Crie interfaces incríveis com React, Next.js e TypeScript.</p>
-        <div class="arrow">→</div>
+              <div class="num-pill">02 / 05</div><div class="tag">REACT</div><div class="cut"></div>
+               <div class="visual"><div class="glyph">
+                <img src="assets/formacoes-2.webp" alt="Front-end Specialist">
+               </div>
+              <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
+              <pre>
+                <span class="cmt">// Interface moderna</span>
+
+                <span class="kw">export default function</span> Home() {
+
+                  <span class="kw">return</span> (
+                    &lt;<span class="str">Hero</span>&gt;
+                      &lt;<span class="str">Navbar</span> /&gt;
+                      &lt;<span class="str">Courses</span> /&gt;
+                      &lt;<span class="str">Footer</span> /&gt;
+                    &lt;/<span class="str">Hero</span>&gt;
+                  );
+
+                }
+
+                <span class="cmt">// React + Next.js + GSAP</span>
+              </pre>
+              </div>
+              </div>
+              <h3>Formação Front-end</h3>
+              <p>Crie interfaces incríveis com React, Next.js e CSS Avançado.</p>
+              <div class="arrow">→</div>
       </article>
 
       <article class="fcard depth-3" data-cursor="hover">
-        <div class="num-pill">03 / 05</div><div class="tag">NODE.JS</div><div class="cut"></div>
-        <div class="visual"><div class="glyph">{ BE }</div>
-          <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
-<pre style="margin-top:24px;white-space:pre-wrap;"><span class="cmt">// Back-end Specialist</span>
-app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw">async</span>(req,res)=&gt;{
-  <span class="kw">return</span> res.<span class="kw">json</span>(data);
-});
-<span class="cmt">// APIs robustas + escala</span></pre>
-          </div>
-        </div>
-        <h3>Formação Back-end</h3>
-        <p>Especialista em APIs com Node.js. Sistemas robustos e escaláveis.</p>
-        <div class="arrow">→</div>
+                <div class="num-pill">03 / 05</div><div class="tag">NODE.JS</div><div class="cut"></div>
+                    <div class="visual"><div class="glyph">
+                        <img src="assets/formacoes-3.webp" alt="Back-end Specialist">
+                    </div>
+                    <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
+              <pre>
+                <span class="cmt">// REST API</span>
+
+                router.<span class="kw">post</span>(
+                  <span class="str">"/users"</span>,
+                  auth,
+                  <span class="kw">async</span> (req,res) =&gt; {
+
+                    <span class="kw">const</span> user =
+                      <span class="kw">await</span> User.create(req.body);
+
+                    <span class="kw">return</span> res.status(<span class="num">201</span>)
+                      .json(user);
+
+                });
+
+                <span class="cmt">// Node.js + Prisma</span>
+             </pre>
+                    </div>
+                </div>
+                <h3>Formação Back-end</h3>
+                <p>Especialista em APIs com Node.js. Sistemas robustos e escaláveis.</p>
+                <div class="arrow">→</div>
       </article>
 
       <div class="fcallout"><span class="s">_diferencial</span>Aulas <em>ao vivo</em>, mentoria contínua e <em>suporte vitalício</em>.</div>
 
       <article class="fcard depth-1" data-cursor="hover">
-        <div class="num-pill">04 / 05</div><div class="tag">REACT NATIVE</div><div class="cut"></div>
-        <div class="visual"><div class="glyph">{ MB }</div>
-          <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
-<pre style="margin-top:24px;white-space:pre-wrap;"><span class="cmt">// Mobile Specialist</span>
-<span class="kw">const</span> App = () =&gt; (
-  &lt;<span class="str">SafeAreaView</span>&gt;
-    &lt;<span class="str">Home</span> /&gt;
-  &lt;/<span class="str">SafeAreaView</span>&gt;
-);</pre>
+                <div class="num-pill">04 / 05</div><div class="tag">REACT NATIVE</div><div class="cut"></div>
+                <div class="visual"><div class="glyph">
+                        <img src="assets/formacoes-4.webp" alt="Mobile Specialist">
+                    </div>
+                  <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
+          <pre>
+                <span class="cmt">// React Native</span>
+
+                <span class="kw">export default function</span> App(){
+
+                  <span class="kw">return</span>(
+                    &lt;<span class="str">NavigationContainer</span>&gt;
+
+                      &lt;<span class="str">Stack.Navigator</span>&gt;
+
+                        &lt;<span class="str">HomeScreen</span>/&gt;
+
+                      &lt;/<span class="str">Stack.Navigator</span>&gt;
+
+                    &lt;/<span class="str">NavigationContainer</span>&gt;
+                  );
+
+                }
+            </pre>
+
+                  </div>
+                </div>
+                <h3>Formação Mobile</h3>
+                <p>Apps nativos iOS/Android com React Native — uma base, duas plataformas.</p>
+                <div class="arrow">→</div>
+      </article>
+
+       <article class="fcard depth-2" data-cursor="hover">
+          <div class="num-pill">05 / 06</div><div class="tag">MEC</div><div class="cut"></div>
+                <div class="visual"><div class="glyph">
+                        <img src="assets/formacoes-5.webp" alt="IA Club">
+                </div>
+            <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
+          <pre>
+            <span class="cmt">// AI Automation</span>
+
+            <span class="kw">const</span> agent =
+            <span class="kw">await</span> openai.<span class="fn">responses</span>.create({
+
+              model:<span class="str">"gpt-5"</span>,
+
+              tools:[
+                <span class="str">"web"</span>,
+                <span class="str">"code"</span>,
+                <span class="str">"vision"</span>
+              ]
+
+            });
+
+            <span class="cmt">// Agent Ready ✓</span>
+          </pre>
+
           </div>
-        </div>
-        <h3>Formação Mobile</h3>
-        <p>Apps nativos iOS/Android com React Native — uma base, duas plataformas.</p>
-        <div class="arrow">→</div>
+          </div>
+          <h3>IA Club</h3>
+          <p>Formação completa que conecta conhecimento técnico e aplicação prática em inteligência artificial e automação.</p>
+          <div class="arrow">→</div>
       </article>
 
       <article class="fcard depth-2" data-cursor="hover">
-        <div class="num-pill">05 / 05</div><div class="tag">MEC</div><div class="cut"></div>
-        <div class="visual"><div class="glyph">MBA</div>
+        <div class="num-pill">06 / 06</div><div class="tag">MEC</div><div class="cut"></div>
+         <div class="visual"><div class="glyph">
+                        <img src="assets/formacoes-6.webp" alt="MBA IA MEC">
+                </div>
           <div class="reveal"><div class="term"><span></span><span></span><span></span></div>
-<pre style="margin-top:24px;white-space:pre-wrap;"><span class="cmt">// MBA em IA — MEC</span>
-<span class="kw">const</span> career = <span class="kw">await</span> ai.<span class="kw">train</span>({
-  level: <span class="str">'senior'</span>,
-  cert: <span class="str">'international'</span>
-});</pre>
+          <pre>
+            <span class="cmt">// Machine Learning Pipeline</span>
+
+            <span class="kw">const</span> model =
+            <span class="kw">await</span> trainer.<span class="fn">fit</span>({
+
+              epochs:<span class="num">120</span>,
+              accuracy:<span class="num">98.7</span>,
+              dataset:<span class="str">"production"</span>
+
+            });
+
+            model.<span class="fn">predict</span>(input);
+
+            <span class="cmt">// MEC • Certificação Internacional</span>
+          </pre>
           </div>
         </div>
         <h3>MBA em Inteligência Artificial</h3>
@@ -1626,9 +1775,9 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
       <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
       <div class="cell" data-cursor="hover">
         <article class="favo full">
-          <div class="face photo" style="background-image:url('assets/RodolfoMori.webp')"><span class="fav-initials">RM</span><span class="fav-tag">Rodolfo Mori</span></div>
+          <div class="face photo" style="background-image:url('assets/rodolfo-mori.webp')"><span class="fav-initials">RM</span><span class="fav-tag">Rodolfo Mori</span></div>
           <div class="detail">
-            <img class="photo-back-mentor" src="assets/RodolfoMori.webp" alt="Rodolfo Mori">
+            <img class="photo-back-mentor" src="assets/rodolfo-mori.webp" alt="Rodolfo Mori">
             <!-- <span class="d-av photo" style="background-image:url('assets/RodolfoMori.webp')">RM</span> -->
             <div class="info-mentor-back">
               <span class="d-name">Rodolfo Mori</span>
@@ -1645,14 +1794,15 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
       </div>
       <div class="cell" data-cursor="hover">
         <article class="favo full alt">
-          <div class="face"><span class="fav-initials">FC</span><span class="fav-tag">Fernanda Costa</span></div>
+          <div class="face photo" style="background-image:url('assets/fernanda-costa.webp')"><span class="fav-initials">FC</span><span class="fav-tag">Fernanda Costa</span></div>
           <div class="detail">
-            <span class="d-av"></span>
-            <span class="d-name">Fernanda Costa</span>
-            <span class="d-role">Tech Recruiter</span>
-            <span class="d-stack"><span>Currículo</span><span>Linkedin</span><span>Carreira</span><span>Entrevistas</span></span>
-            <span class="d-meta">
-              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">LATAM</span></span>
+            <img class="photo-back-mentor" src="assets/fernanda-costa.webp" alt="Fernanda Costa">
+            <div class="info-mentor-back">
+              <span class="d-name">Fernanda Costa</span>
+              <span class="d-role">Tech Recruiter</span>
+              <span class="d-stack"><span>Currículo</span><span>Linkedin</span><span>Carreira</span><span>Entrevistas</span></span>
+              <span class="d-meta">
+                <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">LATAM</span></span>
               <span class="d-years"><b>8</b>anos</span>
             </span>
           </div>
@@ -1665,42 +1815,47 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
     <div class="hc-row">
       <div class="cell" data-cursor="hover">
         <article class="favo full">
-          <div class="face"><span class="fav-initials">DA</span><span class="fav-tag">Diego Almeida</span></div>
+          <div class="face photo" style="background-image:url('assets/mateus-nogueira.webp')"><span class="fav-initials">MN</span><span class="fav-tag">Mateus Nogueira</span></div>
           <div class="detail">
-            <span class="d-av">DA</span>
-            <span class="d-name">Diego Almeida</span>
-            <span class="d-role">BACK-END SENIOR</span>
-            <span class="d-stack"><span>Node.js</span><span>Go</span><span>Postgres</span></span>
-            <span class="d-meta">
-              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Mercado Livre</span></span>
-              <span class="d-years"><b>10</b>anos</span>
-            </span>
+            <img class="photo-back-mentor" src="assets/mateus-nogueira.webp" alt="Mateus Nogueira">
+            <div class="info-mentor-back">
+              <span class="d-name">Mateus Nogueira</span>
+              <span class="d-role">BACK-END SENIOR</span>
+              <span class="d-stack"><span>Node.js</span><span>Go</span><span>Postgres</span></span>
+              <span class="d-meta">
+                <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Mercado Livre</span></span>
+                <span class="d-years"><b>10</b>anos</span>
+              </span>
+            </div>
           </div>
         </article>
       </div>
       <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
       <div class="cell" data-cursor="hover">
         <article class="favo full alt">
-          <div class="face"><span class="fav-initials">CR</span><span class="fav-tag">Camila Ribeiro</span></div>
+          <div class="face photo" style="background-image:url('assets/andrey-maia.webp')"><span class="fav-initials">AM</span><span class="fav-tag">Andrey Maia</span></div>
           <div class="detail">
-            <span class="d-av">CR</span>
-            <span class="d-name">Camila Ribeiro</span>
-            <span class="d-role">MOBILE LEAD</span>
-            <span class="d-stack"><span>React Native</span><span>iOS</span><span>Android</span></span>
-            <span class="d-meta">
-              <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Stone</span></span>
-              <span class="d-years"><b>7</b>anos</span>
-            </span>
+            <img class="photo-back-mentor" src="assets/andrey-maia.webp" alt="Andrey Maia">
+            <div class="info-mentor-back">
+              <span class="d-name">Andrey Maia</span>
+              <span class="d-role">MOBILE LEAD</span>
+              <span class="d-stack"><span>React Native</span><span>iOS</span><span>Android</span></span>
+              <span class="d-meta">
+                <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Stone</span></span>
+                <span class="d-years"><b>7</b>anos</span>
+              </span>
+            </div>
           </div>
         </article>
       </div>
       <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
       <div class="cell" data-cursor="hover">
         <article class="favo full">
-          <div class="face"><span class="fav-initials">PS</span><span class="fav-tag">Pedro Santos</span></div>
+          <div class="face photo" style="background-image:url('assets/henrique-francisco.webp')"><span class="fav-initials">HF</span><span class="fav-tag">Henrique Francisco</span></div>
           <div class="detail">
-            <span class="d-av">PS</span>
-            <span class="d-name">Pedro Santos</span>
+            <img class="photo-back-mentor" src="assets/henrique-francisco.webp" alt="Henrique Francisco">
+            <div class="info-mentor-back">
+              <span class="d-name">Henrique Francisco</span>
             <span class="d-role">DEVOPS · CLOUD</span>
             <span class="d-stack"><span>AWS</span><span>K8s</span><span>Docker</span></span>
             <span class="d-meta">
@@ -1717,16 +1872,18 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
       <div class="cell"><article class="favo empty"><span class="dot"></span></article></div>
       <div class="cell" data-cursor="hover">
         <article class="favo full alt">
-          <div class="face"><span class="fav-initials">JM</span><span class="fav-tag">Júlia Mendes</span></div>
+          <div class="face photo" style="background-image:url('assets/marcio-conceicao.webp')"><span class="fav-initials">MC</span><span class="fav-tag">Márcio Conceição</span></div>
           <div class="detail">
-            <span class="d-av">JM</span>
-            <span class="d-name">Júlia Mendes</span>
+            <img class="photo-back-mentor" src="assets/marcio-conceicao.webp" alt="Márcio Conceição">
+            <div class="info-mentor-back">
+            <span class="d-name">Márcio Conceição</span>
             <span class="d-role">IA · MACHINE LEARNING</span>
             <span class="d-stack"><span>Python</span><span>PyTorch</span><span>LLMs</span></span>
             <span class="d-meta">
               <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Inter</span></span>
               <span class="d-years"><b>6</b>anos</span>
             </span>
+            </div>
           </div>
         </article>
       </div>
@@ -1916,15 +2073,15 @@ app.<span class="kw">get</span>(<span class="str">'/api'</span>, <span class="kw
 
 <script>
 /* LOADER para desativar oculte o setTimeout e chame o initAll*/
-const loader = document.getElementById('loader');
-const letters = document.querySelectorAll('.loader-mono .l');
-letters.forEach((l,i)=> setTimeout(()=> l.classList.add('on'), 80*i));
-const statuses = ['s1','s2','s3','s4'];
-statuses.forEach((s,i)=>{
-  setTimeout(()=>{ statuses.forEach(x=> document.getElementById(x).classList.remove('on')); document.getElementById(s).classList.add('on'); }, 500 + i*500);
-});
-setTimeout(()=>{ loader.classList.add('done'); initAll(); }, 2400);
-// initAll()
+// const loader = document.getElementById('loader');
+// const letters = document.querySelectorAll('.loader-mono .l');
+// letters.forEach((l,i)=> setTimeout(()=> l.classList.add('on'), 80*i));
+// const statuses = ['s1','s2','s3','s4'];
+// statuses.forEach((s,i)=>{
+//   setTimeout(()=>{ statuses.forEach(x=> document.getElementById(x).classList.remove('on')); document.getElementById(s).classList.add('on'); }, 500 + i*500);
+// });
+// setTimeout(()=>{ loader.classList.add('done'); initAll(); }, 2400);
+initAll()
 
 /* HERO PARTICLES */
 function initHeroBg(){
