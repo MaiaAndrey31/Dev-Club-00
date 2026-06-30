@@ -11,6 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.1.13/bundled/lenis.min.js"></script>
@@ -299,13 +301,34 @@ img,svg,canvas{display:block;max-width:100%}
 }
 
 /* ============ STORY — EDITORIAL TIMELINE (Avoora) ============ */
-.story{position:relative;padding:clamp(100px,14vw,180px) 0 clamp(60px,8vw,100px);background:var(--bg);border-top:1px solid var(--line);overflow:hidden}
-.story-head{max-width:1700px;margin:0 auto clamp(60px,9vw,120px);padding:0 clamp(20px,4vw,56px);display:grid;grid-template-columns:auto 1fr;gap:60px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:48px}
+.story{position:relative;padding:clamp(100px,14vw,180px) 0 clamp(60px,8vw,100px); background:var(--bg);border-top:1px solid var(--line);overflow:hidden}
+
+.story-head{max-width:1700px; height: 70vh; margin:0 auto clamp(60px,9vw,120px);padding:2em clamp(20px,4vw,56px);display:flex; justify-content:start; align-items:start; gap:60px;border-bottom:1px solid var(--line);padding-bottom:48px}
+.notebookDev{
+  position:absolute;
+  right:0;
+  top:0;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.notebookDev canvas{
+  width:100%;
+  height:100%;
+  display:block;
+
+}
+
 @media(max-width:900px){.story-head{grid-template-columns:1fr;gap:24px}}
 .story-head .ph-label{font-family:var(--f-mono);font-size:10px;color:var(--text-mute);letter-spacing:.32em;text-transform:uppercase;display:inline-flex;align-items:center;gap:14px;align-self:start}
 .story-head .ph-label::before{content:'';width:24px;height:1px;background:var(--text-mute)}
-.story-head .ph-title{font-size:clamp(2.6rem,7vw,7rem);font-weight:300;letter-spacing:-.04em;line-height:.96;color:var(--text);font-family:var(--f-sans);max-width:1100px}
-.story-head .ph-title em{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--text);letter-spacing:-.02em}
+.story-head .ph-title{font-size:clamp(2.6rem,6vw,6rem);font-weight:300;letter-spacing:-.04em;line-height:.96;color:var(--text);font-family:var(--f-sans);max-width:1100px}
+.story-head .ph-title em{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.02em}
+
+.img-side{position:relative; width: 50%;} .img-side img{width:100%;height:100%;display:block;object-fit:cover;border-radius:16px; border: 1px solid var(--line);box-shadow:0 0 60px rgba(57,211,83,.08)}
+
 .story-head .story-intro{grid-column:2;font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:clamp(1.1rem,1.5vw,1.4rem);color:var(--text-mute);max-width:680px;line-height:1.45;margin-top:24px}
 @media(max-width:900px){.story-head .story-intro{grid-column:1}}
 
@@ -329,8 +352,8 @@ img,svg,canvas{display:block;max-width:100%}
 .srow .srow-body p code{font-family:var(--f-mono);color:var(--accent);background:rgba(57,211,83,.08);padding:2px 8px;border-radius:4px;font-size:.88em}
 
 /* ============ MARQUEE ============ */
-.marq-sec{position:relative;padding:24px 0;background:var(--bg-elev);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
-.marq-label{position:absolute;left:50%;top:-9px;transform:translateX(-50%);background:var(--bg);padding:0 20px;font-family:var(--f-mono);font-size:10px;color:var(--text-mute);letter-spacing:.3em;text-transform:uppercase}
+.marq-sec{position:relative;padding:24px 0;background:var(--bg-elev);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.marq-label{position:absolute;left:50%; top:-40px;transform:translateX(-50%); font-weight:900; background:var(--bg-card);padding:5px 20px;font-family:var(--f-mono);font-size:1.5em;color:var(--accent-glow);letter-spacing:0.5em;text-transform:uppercase; width:100%; text-align:center}
 .marq{display:flex;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .marq-track{display:flex;align-items:center;gap:60px;animation:marquee 35s linear infinite;flex-shrink:0;padding-right:60px}
 @keyframes marquee{to{transform:translateX(-100%)}}
@@ -711,7 +734,7 @@ img,svg,canvas{display:block;max-width:100%}
         radial-gradient(circle at 50% 42%, rgba(57, 211, 83, .05), transparent 60%),
         var(--bg-surface);
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .35))
-}
+} 
 
 .favo.empty::after {
     content: '';
@@ -982,6 +1005,52 @@ img,svg,canvas{display:block;max-width:100%}
     font-weight: 700;
     line-height: 1
 }
+
+/*ZOOM EFFECT*/
+.wrapper,
+.content {
+  position: relative;
+  width:100%;
+  height: 100vh;
+  z-index: 1;
+  
+}
+
+.content{
+  overflox-x: hidden;
+}
+
+.content .section {
+  width: 100%;
+  height: 100vh;
+}
+
+.content .section.hero{
+  background-image: url(assets/bg-space.webp);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.image-container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index:2;
+  perpective: 500px;
+}
+
+.image-container .space-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 
 /* fallback responsivo: sem hover, vira cards empilhados */
 @media(max-width:760px), (hover:none) {
@@ -1336,10 +1405,18 @@ img,svg,canvas{display:block;max-width:100%}
 
 <!-- HISTÓRIA — EDITORIAL TIMELINE (Avoora-style) -->
 <section class="story" id="story">
+   <div class="notebookDev">
+      <!-- <img src="assets/futuro-dev.webp" alt="" class="story-img"> -->
+    </div>
   <div class="story-head" data-reveal>
-    <div class="ph-label">História · 01 / 05</div>
-    <h2 class="ph-title">Cinco capítulos<br/>até a sua <em>nova vida</em>.</h2>
-    <p class="story-intro">Toda transformação começa numa página em branco. A sua começa aqui — e termina em moeda forte, dentro de uma BigTech, ou onde você quiser.</p>
+    <div class="text-side">
+      <div class="ph-label">História · 01 / 05</div>
+        <h2 class="ph-title">Cinco capítulos<br/>até a sua <em>nova vida</em>.</h2>
+        <p class="story-intro">Toda transformação começa numa página em branco. A sua começa aqui — e termina em moeda forte, dentro de uma BigTech, ou onde você quiser.</p>
+    </div>
+
+   
+   
   </div>
 
   <ul class="story-list">
@@ -1665,6 +1742,21 @@ img,svg,canvas{display:block;max-width:100%}
     </div>
   </div>
 </section>
+
+
+<!-- ZOOM ANIMATION -->
+
+<div class="wrapper">
+  <div class="content">
+    <section class="section hero"></section>
+    <section class="section gradient-purple"></section>
+    <section class="section gradient-blue"></section>
+  </div>
+  <div class="image-container">
+    <img class="space-img" src="assets/bg-space.webp" alt="image">
+  </div>
+</div>
+
 
 <!-- PROJETOS DO ALUNO — EDITORIAL -->
 <section class="projects" id="projetos">
@@ -2082,6 +2174,164 @@ img,svg,canvas{display:block;max-width:100%}
 // });
 // setTimeout(()=>{ loader.classList.add('done'); initAll(); }, 2400);
 initAll()
+
+
+function initNotebook3D(){
+  const container = document.querySelector('.notebookDev');
+  if(!container) return;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    35,
+    container.clientWidth / container.clientHeight,
+    0.1,
+    100
+  );
+  camera.position.set(0, 0.4, 5);
+  const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.setClearColor(0x000000, 0);
+  container.appendChild(renderer.domElement);
+  
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  scene.add(ambientLight);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  directionalLight.position.set(3, 4, 5);
+  scene.add(directionalLight);
+  
+  const dracoLoader = new THREE.DRACOLoader();
+  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+  const gltfLoader = new THREE.GLTFLoader();
+  gltfLoader.setDRACOLoader(dracoLoader);
+  
+  let model = null;
+  const textureLoader = new THREE.TextureLoader();
+  
+  // 🔑 CARREGA A TEXTURA WEBP
+  let envTexture = null;
+  textureLoader.load(
+    'assets/studio-texture.webp',
+    (texture) => {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      envTexture = texture;
+      scene.environment = texture;
+    },
+    undefined,
+    (err) => {
+      console.error('Erro ao carregar textura de ambiente:', err);
+    }
+  );
+
+  gltfLoader.load(
+    'assets/notebook-devclub.glb',
+    function(gltf){
+      model = gltf.scene;
+      model.scale.set(20,20,20);
+      model.position.set(1.2, 0.8, 0);
+      model.rotation.set(0.13, 0.45, 0);
+
+      // 🔑 APLICA A TEXTURA EM TODOS OS MATERIAIS DO NOTEBOOK
+      model.traverse((node) => {
+        if (node.isMesh && node.material) {
+          // Aumenta a reflexividade do metal
+          node.material.metalness = 0.8;
+          node.material.roughness = 0.2;
+          
+          // Aplica o mapa de ambiente
+          if (envTexture) {
+            node.material.envMap = envTexture;
+            node.material.envMapIntensity = 1.0; // Aumenta intensidade se necessário
+          }
+          
+          node.material.needsUpdate = true;
+        }
+      });
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".story",
+          start: "0 70%",
+          end: "70% 40%",
+          scrub: 2,
+          markers: true
+        }
+      });
+      timeline.to(model.scale, {
+        x: 75,
+        y: 75,
+        z: 75
+      })
+      timeline.to(model.position, {
+        x: 1.1,
+        y: 0,
+        z: 0
+      }, "<")
+  
+      scene.add(model);
+    },
+    undefined,
+    function(error){
+      console.error('Erro ao carregar notebook-devclub.glb:', error);
+    }
+  );
+
+  const clock = new THREE.Clock();
+  function animate(){
+    requestAnimationFrame(animate);
+    if (model) {
+      const t = clock.getElapsedTime();
+      model.rotation.y = 5.45 + Math.sin(t * 1.5) * 0.20;
+    }
+    renderer.render(scene, camera);
+  }
+  animate();
+  
+  window.addEventListener('resize', function(){
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  });
+}
+
+/*ZOOM ANIMATION*/
+
+console.clear()
+gsap.registerPlugin(ScrollTrigger)
+
+window.addEventListener('load', () => {
+  gsap
+  .timeline({
+    scrollTrigger: {
+      trigger: ".wrapper",
+      start: "top top",
+      end: "+=180%",
+      pin: true,
+      scrub: 2,
+      markers: true
+    }
+  })
+  .to('.space-img', {
+    scale: 7,
+    z: 350,
+    tranformOrigin: 'center center',
+    ease: 'power1.inOut'
+  })
+  .to('section.hero',{
+    scale: 1.1,
+    transformOrigin: 'center center',
+    ease: 'power1.inOut'
+  },
+  '<'
+ );
+});
+
 
 /* HERO PARTICLES */
 function initHeroBg(){
@@ -2577,6 +2827,7 @@ function initAll(){
   initMarqSpeed();
   initNavHide();
   initHoneycomb();
+  initNotebook3D();
   setTimeout(()=> ScrollTrigger.refresh(),600);
 }
 </script>
