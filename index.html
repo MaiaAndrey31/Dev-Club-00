@@ -450,12 +450,12 @@ img,svg,canvas{display:block;max-width:100%}
 .coderain::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,var(--bg-elev) 80%);pointer-events:none}
 .coderain-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 @media(max-width:900px){.coderain-inner{grid-template-columns:1fr}}
-.coderain h2{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;letter-spacing:-.045em;line-height:.95;text-transform:uppercase;font-stretch:75%}
+.coderain h2{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800; letter-spacing:-.045em;line-height:.95;text-transform:uppercase;font-stretch:75%}
 .coderain h2 em{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--accent);font-stretch:100%}
 .coderain h2 .glitch{display:inline-block;position:relative}
-.coderain h2 .glitch[data-text]::before,.coderain h2 .glitch[data-text]::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+.coderain h2 .glitch[data-text]::before,.coderain h2 .glitch[data-text]::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;overflow:hidden }
 .coderain h2 .glitch[data-text]::before{color:var(--accent);transform:translate(-2px,0);clip-path:polygon(0 0,100% 0,100% 33%,0 33%);animation:glitch1 3s infinite linear}
-.coderain h2 .glitch[data-text]::after{color:var(--purple-glow);transform:translate(2px,0);clip-path:polygon(0 67%,100% 67%,100% 100%,0 100%);animation:glitch2 3.2s infinite linear}
+.coderain h2 .glitch[data-text]::after{color:var(--accent);transform:translate(2px,0);clip-path:polygon(0 67%,100% 67%,100% 100%,0 100%);animation:glitch2 3.2s infinite linear}
 @keyframes glitch1{0%,90%{transform:translate(0,0)}91%{transform:translate(-3px,1px)}92%{transform:translate(2px,-1px)}93%{transform:translate(0,0)}}
 @keyframes glitch2{0%,90%{transform:translate(0,0)}91%{transform:translate(3px,-1px)}92%{transform:translate(-2px,1px)}93%{transform:translate(0,0)}}
 .coderain-cards{display:grid;gap:14px}
@@ -1010,47 +1010,68 @@ img,svg,canvas{display:block;max-width:100%}
 .wrapper,
 .content {
   position: relative;
-  width:100%;
-  height: 100vh;
-  z-index: 1;
-  
-}
-
-.content{
-  overflox-x: hidden;
-}
-
-.content .section {
   width: 100%;
   height: 100vh;
 }
 
-.content .section.hero{
-  background-image: url(assets/projeto-1.webp);
+.wrapper {
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  width: 500vw;
+  height: 100vh;
+}
+
+.section.hero {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  background-image: url("assets/projeto-1.webp");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+}
+
+.carousel-track {
+  display: flex;
+  width: 400vw;
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+.carousel-slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
 }
 
 .image-container {
   width: 100%;
   height: 100vh;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
   overflow: hidden;
-  z-index:2;
-  perpective: 500px;
+  z-index: 2;
+  perspective: 500px;
+  pointer-events: none;
 }
 
-.image-container .space-img {
+.space-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
 }
-
 
 /* fallback responsivo: sem hover, vira cards empilhados */
 @media(max-width:760px), (hover:none) {
@@ -1746,20 +1767,34 @@ img,svg,canvas{display:block;max-width:100%}
 
 <!-- ZOOM ANIMATION -->
 
-<div class="wrapper">
+<div class="wrapper" id="projetos">
   <div class="content">
     <section class="section hero"></section>
-    <section class="section gradient-purple"></section>
-    <section class="section gradient-blue"></section>
+
+    <div class="carousel-track">
+      <section class="carousel-slide">
+        <img src="assets/projeto-2.webp" alt="">
+      </section>
+      <section class="carousel-slide">
+        <img src="assets/projeto-3.webp" alt="">
+      </section>
+      <section class="carousel-slide">
+        <img src="assets/projeto-4.webp" alt="">
+      </section>
+      <section class="carousel-slide">
+        <img src="assets/projeto-5.webp" alt="">
+      </section>
+    </div>
   </div>
+
   <div class="image-container">
-    <img class="space-img" src="assets/bg-space.webp" alt="image">
+    <img class="space-img" src="assets/bg-space.webp" alt="">
   </div>
 </div>
 
 
 <!-- PROJETOS DO ALUNO — EDITORIAL -->
-<section class="projects" id="projetos">
+<!-- <section class="projects" id="projetos">
   <div class="projects-head" data-reveal>
     <div class="ph-label">Portfólio · 01 / 07</div>
     <h1 class="ph-title">Projetos que <em>você vai</em><br/>construir até a vaga.</h1>
@@ -1832,7 +1867,6 @@ img,svg,canvas{display:block;max-width:100%}
       </div>
       <div class="prow-meta"><b>MBA</b>IA / ML</div>
     </li>
-
     <li class="prow" data-reveal data-cursor="hover">
       <div class="prow-num">(07)</div>
       <div class="prow-visual"><span class="pv-glyph">KAN</span></div>
@@ -1849,7 +1883,7 @@ img,svg,canvas{display:block;max-width:100%}
     <p class="pf-note">São <em>mais de 60 projetos</em> reais ao longo da jornada — você sai com portfólio de quem fez, não de quem assistiu.</p>
     <a href="#cursos" class="pf-cta" data-cursor="hover">Ver formações <span class="arr">→</span></a>
   </div>
-</section>
+</section> -->
 
 <!-- MENTORES -->
 <section class="mentors" id="mentores">
@@ -1876,7 +1910,7 @@ img,svg,canvas{display:block;max-width:100%}
               <span class="d-role">FUNDADOR · LEAD</span>
               <span class="d-stack"><span>Full Stack</span><span>React</span><span>Node</span></span>
               <span class="d-meta">
-                <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">iFood</span></span>
+                <span class="d-corp"><span class="lbl">EX-EMPRESA</span><span class="val">Santander</span></span>
                 <span class="d-years"><b>12</b>anos</span>
               </span>
             </div>
@@ -1997,15 +2031,15 @@ img,svg,canvas{display:block;max-width:100%}
     </div>
     <div class="coderain-cards">
       <div class="salcard" data-reveal data-reveal-delay="1" data-cursor="hover">
-        <div><span class="level">Júnior</span><div class="range"><span class="cur">R$</span> 4k — 6k</div><div class="desc">Primeiro emprego em até 6 meses após formação.</div></div>
+        <div><span class="level">Júnior</span><div class="range"><span class="cur"></span> 4k — 6k</div><div class="desc">Primeiro emprego em até 6 meses após formação.</div></div>
         <div class="ic">J</div>
       </div>
       <div class="salcard" data-reveal data-reveal-delay="2" data-cursor="hover">
-        <div><span class="level">Pleno</span><div class="range"><span class="cur">R$</span> 8k — 12k</div><div class="desc">Profissionais com 2-4 anos de experiência prática.</div></div>
+        <div><span class="level">Pleno</span><div class="range"><span class="cur"></span> 8k — 12k</div><div class="desc">Profissionais com 2-4 anos de experiência prática.</div></div>
         <div class="ic">P</div>
       </div>
       <div class="salcard" data-reveal data-reveal-delay="3" data-cursor="hover">
-        <div><span class="level">Sênior</span><div class="range"><span class="cur">R$</span> 12k — ∞</div><div class="desc">Sem teto. Projetos internacionais em USD/EUR.</div></div>
+        <div><span class="level">Sênior</span><div class="range"><span class="cur"></span> 12k — ∞</div><div class="desc">Sem teto. Projetos internacionais em USD/EUR.</div></div>
         <div class="ic">S</div>
       </div>
     </div>
@@ -2303,35 +2337,40 @@ function initNotebook3D(){
 /*ZOOM ANIMATION*/
 
 console.clear()
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
-window.addEventListener('load', () => {
-  gsap
-  .timeline({
+window.addEventListener("load", () => {
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".wrapper",
       start: "top top",
-      end: "+=180%",
+      end: "+=550%",
       pin: true,
       scrub: 2,
       markers: true
     }
-  })
-  .to('.space-img', {
+  });
+
+  tl.to(".space-img", {
     scale: 7,
     z: 350,
-    tranformOrigin: 'center center',
-    ease: 'power1.inOut'
+    transformOrigin: "center center",
+    ease: "power1.inOut",
+    duration: 1
   })
-  .to('section.hero',{
-    scale: 1.05,
-    transformOrigin: 'center center',
-    ease: 'power1.inOut'
-  },
-  '<'
- );
-});
 
+  .to(".space-img", {
+    opacity: 0,
+    ease: "power1.out",
+    duration: 0.15
+  }, "-=0.25")
+
+  .to(".content", {
+    x: "-400vw",
+    ease: "none",
+    duration: 4
+  }, "-=0.1");
+});
 
 /* HERO PARTICLES */
 function initHeroBg(){
